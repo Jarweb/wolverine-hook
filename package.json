@@ -1,5 +1,5 @@
 {
-  "name": "wolverine-hook",
+  "name": "@jarzzzi/wolverine-hook",
   "version": "1.0.0",
   "entry": "src/index.ts",
   "module": "dist/esm/index.js",
@@ -18,7 +18,10 @@
     "url": "https://github.com/Jarweb/wolverine-hook/issues"
   },
   "homepage": "https://github.com/Jarweb/wolverine-hook#readme",
-  "dependencies": {
+  "devDependencies": {
+    "@jarzzzi/nidavel": "^1.0.4"
+  },
+  "peerDependencies": {
     "@types/js-cookie": "^2.2.5",
     "@types/react": "^16.9.31",
     "@types/react-dom": "^16.9.6",
@@ -30,8 +33,5 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "throttle-debounce": "^2.1.0"
-  },
-  "devDependencies": {
-    "@jarzzzi/nidavel": "^1.0.4"
   }
 }
