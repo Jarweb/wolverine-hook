@@ -1,28 +1,28 @@
-import {useEffect, useState, useRef} from 'react'
+import { useEffect, useState, useRef, useCallback} from 'react'
 
 export default function useRaf (callback: CallableFunction, delay?: number) {
 	const raf = useRef<number | null>(null)
 	const timer = useRef<NodeJS.Timeout | null>(null)
 	const [isActive, setActive] = useState(false)
 
-	function clearRafLoop () {
+	const clearRafLoop = () => {
 		raf.current && cancelAnimationFrame(raf.current)
 	}
 
-	function clearTimer () {
+	const clearTimer = () => {
 		timer.current && clearTimeout(timer.current)
 	}
 
-	function stepLoop () {
+	const stepLoop = useCallback(() => {
 		callback()
 		raf.current = requestAnimationFrame(stepLoop)
-	}
+	}, [callback])
 
-	function stopLoop () {
+	const stopLoop = () => {
 		setActive(false)
 	}
 
-	function startLoop (ms?: number) {
+	const startLoop = (ms?: number) => {
 		setActive(true)
 
 		clearTimer()
@@ -56,7 +56,7 @@ export default function useRaf (callback: CallableFunction, delay?: number) {
 			clearRafLoop()
 			clearTimer()
 		}
-	}, [isActive, callback, delay])
+	}, [isActive, callback, delay, stepLoop])
 
 	return {
 		startLoop,

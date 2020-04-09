@@ -14,11 +14,11 @@ export default function useFetcher (f: (() => Promise<any>)) {
 		.then((data) => setData(data))
 		.catch(err => setError(err))
 		.finally(() => setLoading(false))
-	}, [f])
+	}, [f, loading])
 
 	useEffect(() => {
 		run()
-	}, [f])
+	}, [run])
 
 	return {
 		error,

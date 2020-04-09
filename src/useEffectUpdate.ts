@@ -8,5 +8,5 @@ export default function useUpdateEffect(effect: EffectCallback, deps: Dependency
 		if (!isFirstmMounted) {
 			return effect()
 		}
-	}, deps)
+	}, [effect, isFirstmMounted, deps])
 }

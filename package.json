@@ -5,7 +5,10 @@
   "module": "dist/esm/index.js",
   "description": "a react hook lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c rollup.config.ts",
+    "version": "npm version patch",
+    "publish": "npm publish  --access=public"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   "homepage": "https://github.com/Jarweb/wolverine-hook#readme",
   "devDependencies": {
     "@jarzzzi/nidavel": "^1.0.6",
+    "@types/lodash.chunk": "^4.2.6",
     "typescript": "^3.8.3"
   },
   "dependencies": {

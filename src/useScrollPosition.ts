@@ -17,17 +17,19 @@ export default function useScrollPosition (ref: RefObject<HTMLElement>) {
 			}
 		}
 
-		if (ref.current) {
-			ref.current.addEventListener('scroll', handler, {
+		const node = ref.current
+
+		if (node) {
+			node.addEventListener('scroll', handler, {
 				capture: false,
 				passive: true
 			})
-		}
 
-		return () => {
-			ref.current && ref.current.removeEventListener('scroll', handler)
+			return () => {
+				node && node.removeEventListener('scroll', handler)
+			}
 		}
-	}, [ref])
+	}, [ref, setPosition])
 
 	return position
 }

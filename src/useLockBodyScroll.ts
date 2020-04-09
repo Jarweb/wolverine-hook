@@ -30,7 +30,8 @@ const bodyMap: Map<HTMLElement, { count: number, overflow: CSSStyleDeclaration['
 let documentListenerAdded = false
 
 export default function useLockBodyScroll(locked: boolean = true, elementRef?: RefObject<HTMLElement>) {
-  elementRef = elementRef || useRef(document!.body)
+  const ref = useRef(document!.body)
+  elementRef = elementRef || ref
 
   useEffect(() => {
     const body = getBody(elementRef!.current)
@@ -86,5 +87,5 @@ export default function useLockBodyScroll(locked: boolean = true, elementRef?: R
         }
       }
     }
-  }, [locked, elementRef.current])
+  }, [locked, elementRef])
 }

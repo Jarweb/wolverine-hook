@@ -13,5 +13,5 @@ export default function useLifecycles(mount: Function = noop, unmount?: Function
         unmount()
       }
     }
-  }, [])
+  }, [mount, unmount])
 }

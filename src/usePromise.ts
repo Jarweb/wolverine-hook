@@ -14,5 +14,5 @@ export default function usePromise () {
 			}
 			p.then(onResolve, onReject)
 		})
-	}, [])
+	}, [isMounted])
 }

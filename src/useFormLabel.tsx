@@ -13,11 +13,11 @@ export default function useFormLabel(initialState: State, formOptions?: any) {
 
 	const handleSubmit = useCallback((cb: (value: State) => void) => {
 		cb(value)
-	}, [])
+	}, [value])
 
 	const handleValidate = useCallback((cb: (value: State) => void) => {
 		cb(value)
-	}, [])
+	}, [value])
 
 	const FormLabel = ({children}: {children: ReactNodeArray}) => {
 		return (<form {...formOptions} >{ children }</form>)

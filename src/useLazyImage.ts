@@ -1,4 +1,4 @@
-import {useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import chunk from 'lodash.chunk'
 
 interface Options {
@@ -11,10 +11,10 @@ interface Options {
 export default function useLazyImage (options: Options) {
 	const { fromKey, cls, rootMargin = '100px 0px', threshold = 0.01} = options
 	
-	const loadImg = (image: HTMLImageElement) => {
+	const loadImg = useCallback((image: HTMLImageElement) => {
 		const src = image.dataset[fromKey]
 		src && (image.src = src)
-	}
+	}, [fromKey])
 
 	useEffect(() => {
 		const imgs = document.querySelectorAll(cls)
@@ -45,5 +45,5 @@ export default function useLazyImage (options: Options) {
 				o.disconnect()
 			}
 		}
-	}, [fromKey, cls, rootMargin, threshold])
+	}, [fromKey, cls, rootMargin, threshold, loadImg])
 }

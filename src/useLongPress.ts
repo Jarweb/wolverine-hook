@@ -34,7 +34,7 @@ export default function useLongPress(
       callback(event)
     }, delay)
 
-  }, [callback, delay])
+  }, [callback, delay, isPreventDefault])
 
   const onClear = useCallback(() => {
     timer.current && clearTimeout(timer.current)
@@ -42,7 +42,7 @@ export default function useLongPress(
     if (isPreventDefault && target.current) {
       target.current.removeEventListener('touchend', preventDefault)
     }
-  }, [])
+  }, [isPreventDefault])
 
   return {
     onMouseDown: (e: any) => onStart(e),

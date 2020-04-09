@@ -11,6 +11,7 @@ export default function useScrolling (ref: RefObject<HTMLElement>, callback: Cal
 
 	useEffect(() => {
 		if (ref.current) {
+			const element = ref.current
 			let timer: any
 
 			const handleReach = () => {
@@ -25,21 +26,21 @@ export default function useScrolling (ref: RefObject<HTMLElement>, callback: Cal
 				}
 
 				timer = setTimeout(() => {
-					const scrollTop = ref.current?.scrollTop || 0
-					const scrollHeight = ref.current?.scrollHeight || 0
-					const clientHeight = ref.current?.clientHeight || 0
+					const scrollTop = element?.scrollTop || 0
+					const scrollHeight = element?.scrollHeight || 0
+					const clientHeight = element?.clientHeight || 0
 
 					scrollHeight - scrollTop - clientHeight <= reachOffset && handleReach()
 				}, throttle)
 			}
 
-			ref.current.addEventListener('scroll', handler, false)
+			element.addEventListener('scroll', handler, false)
 
 			return () => {
-				ref.current?.removeEventListener('scroll', handler, false)
+				element?.removeEventListener('scroll', handler, false)
 			}
 		}
-	}, [callback, reachOffset])
+	}, [callback, reachOffset, ref, throttle])
 
 	return {
 		isReach

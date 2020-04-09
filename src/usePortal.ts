@@ -19,9 +19,9 @@ export default function usePortal (options: Options) {
 	const ref = useRef<HTMLElement>()
 	const timerRef = useRef<NodeJS.Timeout>()
 
-	const onShow = (show: boolean) => {
+	const onShow = useCallback((show: boolean) => {
 		setShow(show)
-	}
+	}, [])
 
 	const create = useCallback(({ children }: { children: ReactNode }): ReactPortal | null => {
 		if (duration) {
@@ -33,7 +33,7 @@ export default function usePortal (options: Options) {
 		}
 
 		return isShow ? createPortal(children, ref.current!) : null
-	}, [duration])
+	}, [duration, isShow, onShow])
 
 	useEffect(() => {
 		const container = genContainer({...rest})

@@ -20,7 +20,7 @@ export default function useIntersection (ref: RefObject<HTMLElement>, options: I
 
     return () => {}
     
-  }, [ref.current, options.threshold, options.root, options.rootMargin])
+  }, [ref, options])
 
   return observerEntry
 }

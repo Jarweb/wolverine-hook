@@ -3,9 +3,9 @@ import {useEffect, useState} from 'react'
 type Trigger = 'load' | 'popstate' | 'pushstate' | 'replacestate'
 
 const dispatchHistoryEvent = (method: 'pushState' | 'replaceState') => {
-  const original = history[method]
+  const original = window.history[method]
 
-  history[method] = function (state) {
+  window.history[method] = function (state) {
     const result = original.apply(this, arguments as any)
     const event: any = new Event(method.toLowerCase())
 
@@ -20,8 +20,8 @@ dispatchHistoryEvent('pushState')
 dispatchHistoryEvent('replaceState')
 
 const genState = (trigger: Trigger) => {
-  const {state, length} = history
-  const {hash, host, hostname, href, origin, pathname, port, protocol, search} = location
+  const {state, length} = window.history
+  const {hash, host, hostname, href, origin, pathname, port, protocol, search} = window.location
 
   return {
     trigger,

@@ -5,7 +5,7 @@ export default function usePersistState<T> (state: T) {
 
 	useEffect(() => {
 		ref.current = state
-	}, [])
+	}, [state])
 
 	return ref.current
 }

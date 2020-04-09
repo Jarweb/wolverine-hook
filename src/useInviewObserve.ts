@@ -28,5 +28,5 @@ export default function useInviewObserve(
 				observer.disconnect()
 			}
 		}
-	}, [el, options.threshold, options.root, options.rootMargin])
+	}, [el, options, callback])
 }

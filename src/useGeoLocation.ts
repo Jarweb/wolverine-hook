@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState, useRef, useCallback} from 'react'
 
 interface GeolocationState{
   loading: boolean;
@@ -25,14 +25,13 @@ export default function useGeoLocation(options?: PositionOptions): GeolocationSt
     speed: null,
     timestamp: Date.now(),
   })
+  const watchRef = useRef<number>()
+  const mounted = useRef(true)
 
-  let mounted = true
-  let watchId: any
-
-  const handler = (event: any) => {
+  const handler = useCallback((event: any) => {
     const { coords, timestamp} = event
 
-    if (mounted) {
+    if (mounted.current) {
       setState({
         loading: false,
         accuracy: coords.accuracy,
@@ -45,27 +44,28 @@ export default function useGeoLocation(options?: PositionOptions): GeolocationSt
         timestamp: timestamp,
       })
     }
-  }
+  }, [])
 
-  const handleError = (error: PositionError) => {
-    if (mounted) {
+  const handleError = useCallback((error: PositionError) => {
+    if (mounted.current) {
       setState({
         ...state,
         loading: false,
         error: error
       })
     }
-  }
+  }, [state])
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(handler, handleError, options)
-    watchId = navigator.geolocation.watchPosition(handler, handleError, options)
+    watchRef.current = navigator.geolocation.watchPosition(handler, handleError, options)
 
     return () => {
-      mounted = false
-      navigator.geolocation.clearWatch(watchId)
+      mounted.current = false
+      watchRef.current &&
+      navigator.geolocation.clearWatch(watchRef.current)
     }
-  }, [])
+  }, [handler, handleError, options])
 
   return state
 }

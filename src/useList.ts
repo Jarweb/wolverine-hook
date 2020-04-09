@@ -68,7 +68,7 @@ export default function useList<T> (initialList: T[]) {
         actions.set((curList: T[]) => curList.slice().filter(callback, thisArg))
       }
     }
-  }, [])
+  }, [initialList, updater])
 
   return [list.current, actions]
 }

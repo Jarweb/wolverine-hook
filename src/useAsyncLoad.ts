@@ -41,4 +41,6 @@ export default function useAsyncLoad (src: string, tag: 'script' | 'style' | 'im
 			? document.body.appendChild(el)
 			: document.head.appendChild(el)
 	}, [src, tag, id])
+
+	return state
 } 

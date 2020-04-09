@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef} from 'react'
+import { useState, useEffect } from 'react'
 
 export default function useFetch (url: string, init?: RequestInit) {
 	const [state, setState] = useState<{
